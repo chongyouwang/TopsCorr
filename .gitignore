@@ -1,0 +1,4 @@
+*.DC_Store*
+*__pycache__*
+coinsar.egg-info
+
