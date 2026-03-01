@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "TopsCorr"
 version = "0.1.0"
-description = "A python package to do simple manipulation and corrections on interferograms from ISCE topsApp."
+description = "A python package to do corrections on interferograms from ISCE topsApp."
 authors = [
 	{name = "Chong-You (Kevin) Wang", email = "kevin11226g@gmail.com"}]
 keywords = ["ISCE","topsApp","tropospheric correction","solid Earth Tide loading"]
