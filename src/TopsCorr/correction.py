@@ -22,7 +22,7 @@ def set_corr(time,x_size,y_size,x0,y0,dx,dy):
     return set_e,set_n,set_u
 
 
-def tropo_corr(time,dem,inc,lon,lat,mask=None,era5_path=os.path.join(os.getcwd(),'ERA5'),output_path=os.getcwd()):
+def tropo_corr(time,dem,inc,lon,lat,mask=None,era5_path=os.path.join(os.getcwd(),'ERA5')):
     # the output delay is in meter
     os.makedirs(era5_path,exist_ok=True)
     t2 = (time + dt.timedelta(hours=1)).replace(minute=0, second=0, microsecond=0)
@@ -36,8 +36,28 @@ def tropo_corr(time,dem,inc,lon,lat,mask=None,era5_path=os.path.join(os.getcwd()
     N = int(np.ceil(lat.max()))
     W = int(np.floor(lon.min()))
     E = int(np.ceil(lon.max()))
-    grb_file1 = os.path.join(era5_path,f"ERA5_N{S}_N{N}_E{W}_E{E}_{date1}_{hr1}.grb")
-    grb_file2 = os.path.join(era5_path,f"ERA5_N{S}_N{N}_E{W}_E{E}_{date2}_{hr2}.grb")
+    if S < 0:
+        S_text = f"S{-S}"
+    else:
+        S_text = f"N{S}"
+    if N < 0:
+        N_text = f"S{-N}"
+    else:
+        N_text = f"N{N}"
+        
+    if E < 0:
+        E_text = f"W{-E}"
+    else:
+        E_text = f"E{E}"
+        
+    if W < 0:
+        W_text = f"W{-W}"
+    else:
+        W_text = f"E{W}"
+        
+    grb_file1 = os.path.join(era5_path,f"ERA5_{S_text}_{N_text}_{W_text}_{E_text}_{date1}_{hr1}.grb")
+    grb_file2 = os.path.join(era5_path,f"ERA5_{S_text}_{N_text}_{W_text}_{E_text}_{date2}_{hr2}.grb")
+
     if not os.path.exists(grb_file1):
         pa.ECMWFdload([date1],hr1,era5_path,model='ERA5',snwe=(S,N,W,E))
     if not os.path.exists(grb_file2):
