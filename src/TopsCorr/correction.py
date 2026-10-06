@@ -23,6 +23,16 @@ def set_corr(time,x_size,y_size,x0,y0,dx,dy):
 
 
 def tropo_corr(time,dem,inc,lon,lat,mask=None,era5_path=os.path.join(os.getcwd(),'ERA5')):
+    """ Function to to tropospheric corrections
+    Parameters: time        : time in datetime format
+                dem         : 2d
+                inc       : float
+                lon       : float
+                lat
+                
+    Returns:    1D np.ndarray in the size of (num_data,)
+    """
+    
     # the output delay is in meter
     os.makedirs(era5_path,exist_ok=True)
     t2 = (time + dt.timedelta(hours=1)).replace(minute=0, second=0, microsecond=0)
